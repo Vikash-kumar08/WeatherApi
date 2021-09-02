@@ -1,11 +1,9 @@
 const express = require('express')
 const request = require('request')
-var bodyParser = require('body-parser')
+
 const app = express();
 
 app.use(express.json())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/weather', (req,res) => {
     let city = req.query.city
@@ -27,6 +25,8 @@ app.get('/weather', (req,res) => {
                     sunsetTime : weatherDetails.sys.sunset
                 }
                 res.json(weatherInfo)
+            }else{
+                res.send("Please enter valid city name and correct unit of temperature")
             }
         }
 
