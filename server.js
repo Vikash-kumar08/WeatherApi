@@ -1,5 +1,6 @@
 const express = require('express')
 const request = require('request')
+const moment = require('moment')
 
 const app = express();
 
@@ -21,8 +22,8 @@ app.get('/weather', (req,res) => {
                     temperature : weatherDetails.main.temp,
                     pressure : weatherDetails.main.pressure,
                     humidity :  weatherDetails.main.humidity,
-                    sunriseTime :  weatherDetails.sys.sunrise,
-                    sunsetTime : weatherDetails.sys.sunset
+                    sunriseTime :  moment.utc(weatherDetails.sys.sunrise).local().format('YYYY-MM-DD HH:mm:ss'),
+                    sunsetTime : moment.utc(weatherDetails.sys.sunset).local().format('YYYY-MM-DD HH:mm:ss')
                 }
                 res.json(weatherInfo)
             }else{
